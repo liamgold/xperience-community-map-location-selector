@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AdminOrgName>xperiencecommunity</AdminOrgName>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Title>Xperience by Kentico Map Location Selector</Title>
+		<PackageId>XperienceCommunity.MapLocationSelector</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>Liam Goldfinch</Authors>
+		<Company>Liam Goldfinch</Company>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>kentico xperience mvc core map form component</PackageTags>
+		<Description>Adds a map selector UI form component for Xperience by Kentico admin site. Can be used for content type fields and page builder widget fields.</Description>
+		<RepositoryUrl>https://github.com/liamgold/xperience-community-map-location-selector</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="images\icon.png" Pack="true" PackagePath="" />
+		<None Include="..\README.md" Pack="true" PackagePath="" />
+		<None Include="..\LICENSE.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdminClientPath Include="Admin\Client\dist\**">
+			<ProjectName>map-location-selector</ProjectName>
+		</AdminClientPath>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="Admin\Client\node_modules\**" />
+		<EmbeddedResource Remove="Admin\Client\node_modules\**" />
+		<None Remove="Admin\Client\node_modules\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="kentico.xperience.admin" Version="28.2.0" />
+		<PackageReference Include="Kentico.Xperience.ImageProcessing" Version="28.2.0" />
+		<PackageReference Include="Kentico.Xperience.WebApp" Version="28.2.0" />
+	</ItemGroup>
+
+</Project>

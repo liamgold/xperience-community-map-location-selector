@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XperienceCommunity.MapLocationSelector", "src\XperienceCommunity.MapLocationSelector.csproj", "{BD414B4A-F215-4958-9D45-FEDFF785722B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26FF1E78-0212-4B80-85E4-6063C1311B97}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD414B4A-F215-4958-9D45-FEDFF785722B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD414B4A-F215-4958-9D45-FEDFF785722B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD414B4A-F215-4958-9D45-FEDFF785722B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD414B4A-F215-4958-9D45-FEDFF785722B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E51380D-BF40-4EF7-8A69-EDEFB4D946DF}
+	EndGlobalSection
+EndGlobal

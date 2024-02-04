@@ -1,0 +1,44 @@
+{
+  "name": "xperiencecommunity-map-location-selector",
+  "version": "1.0.0",
+  "description": "Xperience by Ketnico - Map Location Selector project.",
+  "private": true,
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode=production"
+  },
+  "dependencies": {
+    "@kentico/xperience-admin-base": "28.1.0",
+    "@kentico/xperience-admin-components": "28.1.0",
+    "leaflet": "^1.9.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/plugin-transform-runtime": "^7.23.7",
+    "@babel/preset-env": "^7.23.8",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@kentico/xperience-webpack-config": "28.1.0",
+    "@types/leaflet": "^1.9.8",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.10.0",
+    "style-loader": "^3.3.4",
+    "webpack": "5.89.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react"
+  },
+  "browserslist": [
+    "> .2% and last 3 versions",
+    "not op_mini all",
+    "not IE 11"
+  ]
+}
