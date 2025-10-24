@@ -11,6 +11,17 @@ updates:
       - dependency-name: "Kentico.Xperience.*"
     open-pull-requests-limit: 5
 
+  # Maintain npm dependencies for Admin Client
+  - package-ecosystem: "npm"
+    directory: "/src/Admin/Client"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "07:00"
+    ignore:
+      - dependency-name: "@kentico/xperience-*"
+    open-pull-requests-limit: 5
+
   # Maintain GitHub Actions dependencies
   - package-ecosystem: "github-actions"
     directory: "/"
