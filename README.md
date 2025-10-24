@@ -16,9 +16,11 @@ The component can also be used for widget properties and looks like this on the 
   <img src="src/images/widget-property.PNG" width="600" alt="Map location selector in widget">
 </a>
 
-## Supported version
+## Library Version Matrix
 
-Xperience by Kentico >= 28.2.0
+| Xperience Version | Library Version |
+| ----------------- | --------------- |
+| >= 28.2.0         | 1.0.0           |
 
 ## Dependencies
 
