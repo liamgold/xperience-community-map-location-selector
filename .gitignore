@@ -398,3 +398,8 @@ FodyWeavers.xsd
 *.sln.iml
 
 src/Admin/Client/dist/*
+
+# Claude Code
+.claude/*
+!.claude/commands/
+!.claude/agents/

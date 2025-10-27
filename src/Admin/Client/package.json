@@ -8,8 +8,8 @@
     "build": "webpack --mode=production"
   },
   "dependencies": {
-    "@kentico/xperience-admin-base": "28.1.0",
-    "@kentico/xperience-admin-components": "28.1.0",
+    "@kentico/xperience-admin-base": "30.11.1",
+    "@kentico/xperience-admin-components": "30.11.1",
     "leaflet": "^1.9.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -21,7 +21,7 @@
     "@babel/preset-env": "^7.23.8",
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
-    "@kentico/xperience-webpack-config": "28.1.0",
+    "@kentico/xperience-webpack-config": "30.11.1",
     "@types/leaflet": "^1.9.8",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
