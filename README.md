@@ -20,6 +20,7 @@ The component can also be used for widget properties and looks like this on the 
 
 | Xperience Version | Library Version |
 | ----------------- | --------------- |
+| >= 30.11.1        | 2.0.0           |
 | >= 28.2.0         | 1.0.0           |
 
 ## Dependencies
