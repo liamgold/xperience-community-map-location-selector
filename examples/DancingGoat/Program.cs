@@ -32,6 +32,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Samples.DancingGoat;
+using XperienceCommunity.MapLocationSelector.Extensions;
 
 [assembly: AssemblyDiscoverable]
 
@@ -59,6 +60,8 @@ builder.Services.AddKentico(features =>
     features.UseActivityTracking();
     features.UseCommerce();
 });
+
+builder.Services.AddXperienceCommunityMapLocationSelector(builder.Configuration);
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 

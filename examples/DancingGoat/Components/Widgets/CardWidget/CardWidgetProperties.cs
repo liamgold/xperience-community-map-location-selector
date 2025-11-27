@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-
-using CMS.ContentEngine;
-
+﻿using CMS.ContentEngine;
 using Kentico.Forms.Web.Mvc;
 using Kentico.PageBuilder.Web.Mvc;
 using Kentico.Xperience.Admin.Base.FormAnnotations;
+using System.Collections.Generic;
+using XperienceCommunity.MapLocationSelector;
 
 namespace DancingGoat.Widgets
 {
@@ -23,5 +22,9 @@ namespace DancingGoat.Widgets
         /// Text to be displayed.
         /// </summary>
         public string Text { get; set; }
+
+
+        [MapLocationFormComponent(Label = "Location", Order = 1)]
+        public string Location { get; set; }
     }
 }

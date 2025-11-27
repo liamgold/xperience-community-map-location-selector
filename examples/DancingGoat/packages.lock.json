@@ -1207,6 +1207,14 @@
         "dependencies": {
           "System.IO.Hashing": "8.0.0"
         }
+      },
+      "xperiencecommunity.maplocationselector": {
+        "type": "Project",
+        "dependencies": {
+          "Kentico.Xperience.Admin": "[30.12.1, )",
+          "Kentico.Xperience.ImageProcessing": "[30.12.1, )",
+          "Kentico.Xperience.WebApp": "[30.12.1, )"
+        }
       }
     }
   }
