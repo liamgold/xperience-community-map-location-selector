@@ -1,14 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34408.163
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XperienceCommunity.MapLocationSelector", "src\XperienceCommunity.MapLocationSelector.csproj", "{BD414B4A-F215-4958-9D45-FEDFF785722B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26FF1E78-0212-4B80-85E4-6063C1311B97}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E3472725-C89A-44E5-A03F-A82C9C4EAAB2}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{40FDC8DB-FB82-4D39-9C86-8323F92AE1D6}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		nuget.config = nuget.config
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{A3AE99A3-4E60-4174-B027-27E8852F0509}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0BAC6276-6957-4BBF-BEBE-13B9C6DE3BB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +38,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BD414B4A-F215-4958-9D45-FEDFF785722B} = {0BAC6276-6957-4BBF-BEBE-13B9C6DE3BB4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E51380D-BF40-4EF7-8A69-EDEFB4D946DF}
