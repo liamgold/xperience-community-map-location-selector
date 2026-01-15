@@ -69,9 +69,9 @@ export const MapLocationFormComponent: React.FC<
     if (!newValue) {
       newValue = DEFAULT_VALUE;
     }
-    var value = parseFloat(newValue);
+    let value = parseFloat(newValue);
     if (Number.isNaN(value)) {
-      value = 0
+      value = 0;
     }
     return value
   }
@@ -83,7 +83,7 @@ export const MapLocationFormComponent: React.FC<
     let newValue = e.target.value;
     if (props.onChange && decimalRegex.test(newValue))
     {
-      var value = parseNewValue(newValue);
+      const value = parseNewValue(newValue);
       setLatitude(value)
     }
   } 
