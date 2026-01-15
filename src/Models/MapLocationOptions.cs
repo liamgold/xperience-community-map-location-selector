@@ -25,5 +25,23 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// The map starting longitude.
+        /// </summary>
+        public int? MapZoom
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// The map starting longitude.
+        /// </summary>
+        public bool? ManualEntry
+        {
+            get;
+            set;
+        }
     }
 }
