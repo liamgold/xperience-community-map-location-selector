@@ -1,8 +1,8 @@
 import React from "react";
 import { FormComponentProps } from "@kentico/xperience-admin-base";
 import {
-    Box,
-    FormEditMode,
+  Box,
+  FormEditMode,
   FormItemWrapper,
   Input,
   Spacing,
@@ -39,12 +39,13 @@ export const MapLocationFormComponent: React.FC<
     props.pinLongitude
   );
 
-  const decimalRegex = /^-?\d*\.?\d*$/
+  const decimalRegex = /^-?\d*\.?\d*$/;
+  const DEFAULT_VALUE = "0";
 
   const clickedPosition: LatLngTuple | null =
     latitude && longitude ? [latitude, longitude] : null;
 
-  let editableAttribute = !!!props.manualEntry || props.editMode != FormEditMode.Default ? { disabled: true } : {};
+  let editableAttribute = !props.manualEntry || props.editMode != FormEditMode.Default ? { disabled: true } : {};
   // Marker click handler to clear the latitude and longitude values
   const handleMarkerClick = () => {
     setLatitude(null);
@@ -66,7 +67,7 @@ export const MapLocationFormComponent: React.FC<
   const parseNewValue = (newValue: string) =>
   {
     if (!newValue) {
-    newValue = "0";
+      newValue = DEFAULT_VALUE;
     }
     var value = parseFloat(newValue);
     if (Number.isNaN(value)) {

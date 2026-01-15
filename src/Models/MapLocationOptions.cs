@@ -27,7 +27,7 @@
         }
 
         /// <summary>
-        /// The map starting longitude.
+        /// Change the default zoom level of the map.
         /// </summary>
         public int? MapZoom
         {
@@ -36,7 +36,7 @@
         }
 
         /// <summary>
-        /// The map starting longitude.
+        /// Allow the manual entry of latitude and longitude coordinates.
         /// </summary>
         public bool? ManualEntry
         {
