@@ -45,6 +45,8 @@ dotnet add package XperienceCommunity.MapLocationSelector
    "xperiencecommunity.maplocation": {
        "MapLatitude": "<your default latitude, e.g. 53.799009663238486>",
        "MapLongitude": "<your default longitude, e.g. -1.549048364271424>"
+       "MapZoom": <your default zoom level, e.g. 10>
+       "ManualEntry": <true or false, whether to allow manual entry of lat/long>
    }
    ```
 

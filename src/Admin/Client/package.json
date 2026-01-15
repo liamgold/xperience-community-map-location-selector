@@ -1,7 +1,7 @@
 {
   "name": "xperiencecommunity-map-location-selector",
   "version": "1.0.0",
-  "description": "Xperience by Ketnico - Map Location Selector project.",
+  "description": "Xperience by Kentico - Map Location Selector project.",
   "private": true,
   "engines": {
     "node": ">=22"

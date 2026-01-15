@@ -28,6 +28,10 @@ namespace XperienceCommunity.MapLocationSelector
             clientProperties.MapLatitude = ValidationHelper.GetDouble(_mapLocationOptions.MapLatitude, 0);
             clientProperties.MapLongitude = ValidationHelper.GetDouble(_mapLocationOptions.MapLongitude, 0);
 
+            clientProperties.MapZoom = ValidationHelper.GetInteger(_mapLocationOptions.MapZoom, 15);
+
+            clientProperties.ManualEntry = ValidationHelper.GetBoolean(_mapLocationOptions.ManualEntry, false);
+
             // Check for an existing stored value, if we have one then prepare the data for the react component
             if (!string.IsNullOrWhiteSpace(clientProperties.Value))
             {
@@ -59,9 +63,13 @@ namespace XperienceCommunity.MapLocationSelector
 
         public double MapLongitude { get; set; }
 
+        public int MapZoom { get; set; }
+
         public double? PinLatitude { get; set; }
 
         public double? PinLongitude { get; set; }
+
+        public bool? ManualEntry { get; set; }
     }
 
     // Attribute for usage for widget field configurations

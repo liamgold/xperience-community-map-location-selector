@@ -25,5 +25,23 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Change the default zoom level of the map.
+        /// </summary>
+        public int? MapZoom
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Allow the manual entry of latitude and longitude coordinates.
+        /// </summary>
+        public bool? ManualEntry
+        {
+            get;
+            set;
+        }
     }
 }

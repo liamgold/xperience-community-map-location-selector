@@ -2,6 +2,7 @@ import React from "react";
 import { FormComponentProps } from "@kentico/xperience-admin-base";
 import {
   Box,
+  FormEditMode,
   FormItemWrapper,
   Input,
   Spacing,
@@ -21,8 +22,10 @@ const customMarkerIcon = new Icon({
 export interface MapLocationFormComponentProps extends FormComponentProps {
   mapLatitude: number;
   mapLongitude: number;
+  mapZoom?: number;
   pinLatitude: number | null;
   pinLongitude: number | null;
+  manualEntry?: boolean;
 }
 
 export const MapLocationFormComponent: React.FC<
@@ -36,9 +39,13 @@ export const MapLocationFormComponent: React.FC<
     props.pinLongitude
   );
 
+  const decimalRegex = /^-?\d*\.?\d*$/;
+  const DEFAULT_VALUE = "0";
+
   const clickedPosition: LatLngTuple | null =
     latitude && longitude ? [latitude, longitude] : null;
 
+  let editableAttribute = !props.manualEntry || props.editMode != FormEditMode.Default ? { disabled: true } : {};
   // Marker click handler to clear the latitude and longitude values
   const handleMarkerClick = () => {
     setLatitude(null);
@@ -55,6 +62,41 @@ export const MapLocationFormComponent: React.FC<
     });
     return null;
   };
+
+  // Parse New Value
+  const parseNewValue = (newValue: string) =>
+  {
+    if (!newValue) {
+      newValue = DEFAULT_VALUE;
+    }
+    let value = parseFloat(newValue);
+    if (Number.isNaN(value)) {
+      value = 0;
+    }
+    return value
+  }
+
+
+  // Handle Manual Changes
+  const handleLatChange = (e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    let newValue = e.target.value;
+    if (props.onChange && decimalRegex.test(newValue))
+    {
+      const value = parseNewValue(newValue);
+      setLatitude(value)
+    }
+  } 
+
+  const handleLonChange = (e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    let newValue = e.target.value;
+    if (props.onChange && decimalRegex.test(newValue))
+    {
+      var value = parseNewValue(newValue);
+      setLongitude(value)
+    }
+  } 
 
   // Update the Kentico value when the latitude or longitude changes
   React.useEffect(
@@ -84,7 +126,7 @@ export const MapLocationFormComponent: React.FC<
       <Box spacingY={Spacing.S}>
         <MapContainer
           center={[props.mapLatitude, props.mapLongitude]}
-          zoom={15}
+          zoom={props.mapZoom ?? 15}
           style={{ height: "500px", width: "100%" }}
         >
           <TileLayer
@@ -108,8 +150,9 @@ export const MapLocationFormComponent: React.FC<
           label="Latitude"
           placeholder="Current latitude value"
           type="text"
-          disabled
-          value={latitude || ""}
+          {...editableAttribute}
+          value={latitude}
+          onChange={handleLatChange}
         />
       </Box>
       <Box spacingY={Spacing.S}>
@@ -117,8 +160,9 @@ export const MapLocationFormComponent: React.FC<
           label="Longitude"
           placeholder="Current longitude value"
           type="text"
-          disabled
-          value={longitude || ""}
+          {...editableAttribute}
+          value={longitude}
+          onChange={handleLonChange}
         />
       </Box>
     </FormItemWrapper>
