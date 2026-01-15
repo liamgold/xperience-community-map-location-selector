@@ -62,21 +62,27 @@ export const MapLocationFormComponent: React.FC<
     return null;
   };
 
-    // Handle Manual Changes
+  // Parse New Value
+  const parseNewValue = (newValue: string) =>
+  {
+    if (!newValue) {
+    newValue = "0";
+    }
+    var value = parseFloat(newValue);
+    if (Number.isNaN(value)) {
+      value = 0
+    }
+    return value
+  }
+
+
+  // Handle Manual Changes
   const handleLatChange = (e: React.ChangeEvent<HTMLInputElement>) => 
   {
     let newValue = e.target.value;
     if (props.onChange && decimalRegex.test(newValue))
     {
-      if (!newValue)
-      {
-        newValue = "0";
-      }
-      var value = parseFloat(newValue);
-      if (Number.isNaN(value)) 
-      {
-        value = 0
-      }
+      var value = parseNewValue(newValue);
       setLatitude(value)
     }
   } 
@@ -86,15 +92,7 @@ export const MapLocationFormComponent: React.FC<
     let newValue = e.target.value;
     if (props.onChange && decimalRegex.test(newValue))
     {
-      if (!newValue)
-      {
-        newValue = "0";
-      }
-      var value = parseFloat(newValue);
-      if (Number.isNaN(value))
-      {
-        value = 0
-      }
+      var value = parseNewValue(newValue);
       setLongitude(value)
     }
   } 
