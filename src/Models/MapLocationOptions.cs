@@ -1,4 +1,4 @@
-﻿namespace XperienceCommunity.MapLocationSelector.Models
+namespace XperienceCommunity.MapLocationSelector.Models
 {
     public sealed class MapLocationOptions
     {
@@ -39,6 +39,16 @@
         /// Allow the manual entry of latitude and longitude coordinates.
         /// </summary>
         public bool? ManualEntry
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Google Maps API key. Required for the Google Map Location Selector form component.
+        /// Must have Maps JavaScript API and Places API enabled.
+        /// </summary>
+        public string? GoogleApiKey
         {
             get;
             set;

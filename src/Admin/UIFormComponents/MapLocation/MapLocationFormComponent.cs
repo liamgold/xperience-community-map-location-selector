@@ -1,4 +1,4 @@
-﻿using CMS.Helpers;
+using CMS.Helpers;
 using Kentico.Xperience.Admin.Base.FormAnnotations;
 using Kentico.Xperience.Admin.Base.Forms;
 using Microsoft.Extensions.Options;
