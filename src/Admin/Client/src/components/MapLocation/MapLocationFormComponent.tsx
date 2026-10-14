@@ -19,6 +19,8 @@ const customMarkerIcon = new Icon({
   popupAnchor: [1, -34],
 });
 
+const decimalRegex = /^-?\d*\.?\d*$/;
+
 export interface MapLocationFormComponentProps extends FormComponentProps {
   mapLatitude: number;
   mapLongitude: number;
@@ -28,90 +30,121 @@ export interface MapLocationFormComponentProps extends FormComponentProps {
   manualEntry?: boolean;
 }
 
+// Splits the stored "latitude,longitude" value into its text parts
+const splitValue = (value: unknown): [string, string] => {
+  if (typeof value !== "string" || !value) {
+    return ["", ""];
+  }
+  const parts = value.split(",");
+  if (parts.length !== 2) {
+    return ["", ""];
+  }
+  return [parts[0].trim(), parts[1].trim()];
+};
+
+// Parses a coordinate, returning null if it is not a usable number
+const parseCoordinate = (text: string): number | null => {
+  if (!text) {
+    return null;
+  }
+  const value = parseFloat(text);
+  return Number.isFinite(value) ? value : null;
+};
+
+// Map click handler component to report the clicked position
+const MapClickHandler: React.FC<{
+  onClick: (e: LeafletMouseEvent) => void;
+}> = ({ onClick }) => {
+  useMapEvents({ click: onClick });
+  return null;
+};
+
 export const MapLocationFormComponent: React.FC<
   MapLocationFormComponentProps
 > = (props) => {
-  // State to store the latitude and longitude values, initialized with the Kentico values passed to the component
-  const [latitude, setLatitude] = React.useState<number | null>(
-    props.pinLatitude
+  // Text shown in the manual entry inputs. Kept separately from the Kentico value so
+  // partial input (e.g. "53." or "-") can be typed without being reformatted.
+  const [latitudeText, setLatitudeText] = React.useState<string>(
+    () => splitValue(props.value)[0]
   );
-  const [longitude, setLongitude] = React.useState<number | null>(
-    props.pinLongitude
+  const [longitudeText, setLongitudeText] = React.useState<string>(
+    () => splitValue(props.value)[1]
   );
 
-  const decimalRegex = /^-?\d*\.?\d*$/;
-  const DEFAULT_VALUE = "0";
+  // The last value this component reported to Kentico
+  const lastReportedValue = React.useRef<unknown>(props.value);
 
+  // Resync the inputs when Kentico changes the value externally (e.g. form reset or reload)
+  React.useEffect(() => {
+    if (props.value === lastReportedValue.current) {
+      return;
+    }
+    lastReportedValue.current = props.value;
+    const [lat, lng] = splitValue(props.value);
+    setLatitudeText(lat);
+    setLongitudeText(lng);
+  }, [props.value]);
+
+  // Only notify Kentico when the editor has actually changed the value, so the form
+  // is not marked as dirty on load
+  const reportValue = (newValue: string) => {
+    lastReportedValue.current = newValue;
+    if (props.onChange && newValue !== (props.value ?? "")) {
+      props.onChange(newValue);
+    }
+  };
+
+  const reportCoordinates = (latText: string, lngText: string) => {
+    const lat = parseCoordinate(latText);
+    const lng = parseCoordinate(lngText);
+    reportValue(lat === null || lng === null ? "" : `${lat},${lng}`);
+  };
+
+  const latitude = parseCoordinate(latitudeText);
+  const longitude = parseCoordinate(longitudeText);
   const clickedPosition: LatLngTuple | null =
-    latitude && longitude ? [latitude, longitude] : null;
+    latitude !== null && longitude !== null ? [latitude, longitude] : null;
 
-  let editableAttribute = !props.manualEntry || props.editMode != FormEditMode.Default ? { disabled: true } : {};
+  // The field cannot be changed when the form is disabled or read only
+  const isReadOnly =
+    !!props.disabled ||
+    (props.editMode ?? FormEditMode.Default) !== FormEditMode.Default;
+
+  const editableAttribute =
+    !props.manualEntry || isReadOnly ? { disabled: true } : {};
+
+  // Map click handler to set the latitude and longitude values
+  const handleMapClick = (e: LeafletMouseEvent) => {
+    const lat = String(e.latlng.lat);
+    const lng = String(e.latlng.lng);
+    setLatitudeText(lat);
+    setLongitudeText(lng);
+    reportCoordinates(lat, lng);
+  };
+
   // Marker click handler to clear the latitude and longitude values
   const handleMarkerClick = () => {
-    setLatitude(null);
-    setLongitude(null);
+    setLatitudeText("");
+    setLongitudeText("");
+    reportValue("");
   };
-
-  // Map click handler component to update the latitude and longitude values when the map is clicked
-  const MapClickHandler = () => {
-    useMapEvents({
-      click: (e: LeafletMouseEvent) => {
-        setLatitude(e.latlng.lat);
-        setLongitude(e.latlng.lng);
-      },
-    });
-    return null;
-  };
-
-  // Parse New Value
-  const parseNewValue = (newValue: string) =>
-  {
-    if (!newValue) {
-      newValue = DEFAULT_VALUE;
-    }
-    let value = parseFloat(newValue);
-    if (Number.isNaN(value)) {
-      value = 0;
-    }
-    return value
-  }
-
 
   // Handle Manual Changes
-  const handleLatChange = (e: React.ChangeEvent<HTMLInputElement>) => 
-  {
-    let newValue = e.target.value;
-    if (props.onChange && decimalRegex.test(newValue))
-    {
-      const value = parseNewValue(newValue);
-      setLatitude(value)
+  const handleLatChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    if (decimalRegex.test(newValue)) {
+      setLatitudeText(newValue);
+      reportCoordinates(newValue, longitudeText);
     }
-  } 
+  };
 
-  const handleLonChange = (e: React.ChangeEvent<HTMLInputElement>) => 
-  {
-    let newValue = e.target.value;
-    if (props.onChange && decimalRegex.test(newValue))
-    {
-      var value = parseNewValue(newValue);
-      setLongitude(value)
+  const handleLonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    if (decimalRegex.test(newValue)) {
+      setLongitudeText(newValue);
+      reportCoordinates(latitudeText, newValue);
     }
-  } 
-
-  // Update the Kentico value when the latitude or longitude changes
-  React.useEffect(
-    function updateKentico() {
-      if (props.onChange) {
-        // If latitude or longitude is null, clear the Kentico value
-        if (latitude === null || longitude === null) {
-          props.onChange("");
-        } else {
-          props.onChange(`${latitude},${longitude}`);
-        }
-      }
-    },
-    [latitude, longitude]
-  );
+  };
 
   return (
     <FormItemWrapper
@@ -134,13 +167,16 @@ export const MapLocationFormComponent: React.FC<
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
 
-          <MapClickHandler />
+          {!isReadOnly && <MapClickHandler onClick={handleMapClick} />}
 
           {clickedPosition && (
             <Marker
+              // Leaflet only reads "interactive" on creation, so recreate the marker when it changes
+              key={isReadOnly ? "readonly" : "editable"}
               position={clickedPosition}
               icon={customMarkerIcon}
-              eventHandlers={{ click: handleMarkerClick }}
+              interactive={!isReadOnly}
+              eventHandlers={isReadOnly ? {} : { click: handleMarkerClick }}
             />
           )}
         </MapContainer>
@@ -151,7 +187,7 @@ export const MapLocationFormComponent: React.FC<
           placeholder="Current latitude value"
           type="text"
           {...editableAttribute}
-          value={latitude}
+          value={latitudeText}
           onChange={handleLatChange}
         />
       </Box>
@@ -161,7 +197,7 @@ export const MapLocationFormComponent: React.FC<
           placeholder="Current longitude value"
           type="text"
           {...editableAttribute}
-          value={longitude}
+          value={longitudeText}
           onChange={handleLonChange}
         />
       </Box>
